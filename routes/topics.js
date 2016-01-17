@@ -15,19 +15,4 @@ router.get('/', function(req, res, next) {
     });
 });
 
-// GET all posts by topic
-router.get('/:id', function(req, res, next) {
-  knex('topics')
-    .select()
-    .where({
-      id: req.params.id
-    })
-    .then(function(topics) {
-      res.json(topics);
-    })
-    .catch(function(err) {
-      next(new Error(err));
-    });
-});
-
 module.exports = router;

@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <h1 class="text-center">{{ title }}</h1>
+      <form action="/posts/new" method="post">
+        <div class="form-group">
+          <label for="topic_id">Topic</label>
+          <select name="topic_id" class="form-control" id="topic_id" required>
+            <option selected disabled>
+              Choose Topic...
+            </option>
+            <option value="2" name="topic_id">
+              Art
+            </option>
+            <option value="4" name="topic_id">
+              Hockey
+            </option>
+            <option value="3" name="topic_id">
+              Music
+            </option>
+            <option value="1" name="topic_id">
+              Programming
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="title">Post Title</label>
+          <input type="text" name="title" class="form-control" id="title" placeholder="Title no longer than 60 characters..." required>
+        </div>
+        <div class="form-group">
+          <label for="body">Post</label>
+          <textarea name="body" class="form-control" id="body" placeholder="200 words or less..." required></textarea>
+        </div>
+        <button class="btn btn-default" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

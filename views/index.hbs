@@ -1,2 +1,25 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      {{# each data }}
+        <div class="well">
+          <div class="row">
+            <div class="col-md-1">
+              <h3>{{ this.rating }}</h3>
+            </div>
+            <div class="col-md-3">
+              <img src="https://www.fillmurray.com/200/200" />
+            </div>
+            <div class="col-md-8">
+              <h2>{{ this.title }}</h2>
+              <p>
+                {{ this.body }}
+              </p>
+              <a href="#">Read more...</a>
+            </div>
+          </div>
+        </div>
+      {{/ each }}
+    </div>
+  </div>
+</div>
