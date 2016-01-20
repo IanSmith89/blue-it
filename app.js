@@ -5,8 +5,11 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 
 var posts = require('./routes/posts');
 var topics = require('./routes/topics');
@@ -24,6 +27,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+var cookieOptions = {
+  name: 'session',
+  keys: [process.env.COOKIE_SECRET1, process.env.COOKIE_SECRET2]
+};
+app.use(cookieSession(cookieOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', auth);

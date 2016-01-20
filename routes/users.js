@@ -5,6 +5,14 @@ var router = express.Router();
 var knex = require('../db/knex');
 var bcrypt = require('bcrypt');
 
+function isLoggedIn(req) {
+  if (req.session && req.session.user) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // GET shows list of all users
 router.get('/', function(req, res, next) {
   res.send('lists all users');
@@ -12,9 +20,17 @@ router.get('/', function(req, res, next) {
 
 // GET new takes user to create user page
 router.get('/new', function(req, res, next) {
-  res.render('users/create', {
-    title: 'Create User'
-  });
+  if (isLoggedIn(req)) {
+    res.render('users/create', {
+      title: 'Create User',
+      isLoggedIn: true,
+      username: req.session.user.username
+    });
+  } else {
+    res.render('users/create', {
+      title: 'Create User'
+    });
+  }
 });
 
 // POST new inserts user data into db and redirects to user profile
@@ -26,7 +42,12 @@ router.post('/new', function(req, res, next) {
     req.body.password = hash;
     knex('users')
       .insert(req.body)
-      .then(function() {
+      .returning('*')
+      .then(function(user) {
+        req.session.user = {
+          id: user[0].id,
+          username: user[0].username
+        };
         res.redirect('/');
       })
       .catch(function(err) {
